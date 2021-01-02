@@ -42,12 +42,18 @@ client.on('message', async message => {
         return level;
     };
 
+    function randomEmbedColor() {
+        var colorsArray = ['#e9ccc4','#e7adb8', '#7ebca8', '#823a4b', '#e4dde1', '#b64358', '#e7dfd9']
+        let chosenColor = colorsArray[Math.floor(Math.random() * colorsArray.length)];
+        return chosenColor;
+    }
+
 
     //name commands and outputs
     if (command === 'ani') {
         if (!args.length) {
             const exampleEmbed = new Discord.MessageEmbed()
-                .setColor('#FF338A')
+                .setColor(randomEmbedColor())
                 .addField(`Try the following commands 🤩`, `!ani: inspo, omg, rank (username), flex (username)`)
                 .setImage(`https://cdn.wallpapersafari.com/47/11/P6kDNQ.jpg`)
                 .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
@@ -90,7 +96,7 @@ client.on('message', async message => {
             let chosenFile = files[Math.floor(Math.random() * files.length)];
 
             const exampleEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor(randomEmbedColor())
                 .setTitle('~OMG~')
                 .setDescription('random zero-two-uwu swag')
                 //must attach files location and then set image for local images
@@ -124,9 +130,9 @@ client.on('message', async message => {
                     return true;
                 }
 
-                if (isEmpty(response.data)) {
+                if (isEmpty(response.data) || (response.data[0].queueType == "RANKED_FLEX_SR" & isEmpty(response.data[1]))) {
                     const oopsEmbed = new Discord.MessageEmbed()
-                        .setColor('#FF338A')
+                        .setColor(randomEmbedColor())
                         .setTitle(`Oopsie! :pleading_face:`)
                         .addField('Please Try Again', `Make sure the summoner has a Solo Queue rank in the current season!`)
                         .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
@@ -279,8 +285,8 @@ client.on('message', async message => {
             }
 
             const exampleEmbed = new Discord.MessageEmbed()
-                .setColor('#FF338A')
-                .setTitle(`${lolName}'s ${rankData.qType} Rank is`)
+                .setColor(randomEmbedColor())
+                .setTitle(`${lolName}'s Solo Rank is`)
                 .addField(`${rankData.tier} ${rankData.rank}`, `${rankData.wins} wins ${rankData.lp} lp`)
                 .setImage(getLeagueIcon())
                 .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
@@ -312,9 +318,9 @@ client.on('message', async message => {
                     return true;
                 }
 
-                if (isEmpty(response.data)) {
+                if (isEmpty(response.data) || (response.data[0].queueType == "RANKED_SOLO_5x5" & isEmpty(response.data[1]))) {
                     const oopsEmbed = new Discord.MessageEmbed()
-                        .setColor('#FF338A')
+                        .setColor(randomEmbedColor())
                         .setTitle(`Oopsie! :pleading_face:`)
                         .addField('Please Try Again', `Make sure the summoner has a Flex Queue rank in the current season!`)
                         .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
@@ -322,6 +328,7 @@ client.on('message', async message => {
                     message.channel.send(oopsEmbed);
 
                 }
+
 
                 //access data first array element and then can use inner elements
                 else if (response.data[0].queueType == "RANKED_FLEX_SR") {
@@ -467,8 +474,8 @@ client.on('message', async message => {
             }
 
             const exampleEmbed = new Discord.MessageEmbed()
-                .setColor('#FF338A')
-                .setTitle(`${lolName}'s ${rankData.qType} Rank is`)
+                .setColor(randomEmbedColor())
+                .setTitle(`${lolName}'s Flex Rank is`)
                 .addField(`${rankData.tier} ${rankData.rank}`, `${rankData.wins} wins ${rankData.lp} lp`)
                 .setImage(getLeagueIcon())
                 .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
