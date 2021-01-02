@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const axios = require("axios");
 
 const uri = "https://animechanapi.xyz/api/quotes/random";
-const apiKey = '/ahahahahaaha i accidentally posted the key here';
+const apiKey = '/ahahahahaaha i accidentally posted the key here but i made a new one u thought aha';
 
 
 //discord bot client 
@@ -444,4 +444,4 @@ client.on('message', async message => {
 
 
 //login access to bot application -- keep at EOF
-client.login('NzkxMjczOTkzODA5NTU5NTgz.X-MxVQ.2KPSyOiAPb66lnGqLhJ6g6WSOVc');
+client.login('/ahahahahaaha i accidentally posted the key here but i made a new one u thought aha');
