@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const axios = require("axios");
 
 const uri = "https://animechanapi.xyz/api/quotes/random";
-const apiKey = 'RGAPI-d8250f4d-c625-43ad-9897-1ad3d1340851';
+const apiKey = '/ahahahahaaha i accidentally posted the key here';
 
 
 //discord bot client 
