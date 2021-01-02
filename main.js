@@ -1,9 +1,9 @@
 //ani bot
 const Discord = require('discord.js');
 const axios = require("axios");
+const config = require("./config.json");
 
 const uri = "https://animechanapi.xyz/api/quotes/random";
-const apiKey = 'RGAPI-d8250f4d-c625-43ad-9897-1ad3d1340851';
 
 
 //discord bot client 
@@ -25,7 +25,7 @@ client.on('message', async message => {
     const command = args.shift().toLowerCase();
 
     //access league name and encryptedID
-    const url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${riotName}?api_key=` + apiKey;
+    const url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${riotName}?api_key=` + config.apiKey;
     let getName = async () => {
         let response = await axios.get(url);
         //access data first array element and then can use inner elements
@@ -48,7 +48,7 @@ client.on('message', async message => {
         if (!args.length) {
             const exampleEmbed = new Discord.MessageEmbed()
                 .setColor('#FF338A')
-                .addField(`Try the following commands`, `!ani: inspo, omg, rank (username), flex (username)`)
+                .addField(`Try the following commands 🤩`, `!ani: inspo, omg, rank (username), flex (username)`)
                 .setImage(`https://cdn.wallpapersafari.com/47/11/P6kDNQ.jpg`)
                 .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
 
@@ -107,7 +107,7 @@ client.on('message', async message => {
                 return new Error('Error getting EncryptedID')
             });
 
-            const url2 = `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${encryptedId}?api_key=` + apiKey;
+            const url2 = `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${encryptedId}?api_key=` + config.apiKey;
 
             let getRank = async () => {
                 let response = await axios.get(url2).catch(err => {
@@ -115,8 +115,28 @@ client.on('message', async message => {
                     return new Error('Error getting rank data')
                 });
 
+                //check if returned empty json object
+                function isEmpty(obj) {
+                    for(var key in obj) {
+                        if(obj.hasOwnProperty(key))
+                            return false;
+                    }
+                    return true;
+                }
+
+                if (isEmpty(response.data)) {
+                    const oopsEmbed = new Discord.MessageEmbed()
+                        .setColor('#FF338A')
+                        .setTitle(`Oopsie! :pleading_face:`)
+                        .addField('Please Try Again', `Make sure the summoner has a Solo Queue rank in the current season!`)
+                        .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
+
+                    message.channel.send(oopsEmbed);
+
+                }
+
                 //access data first array element and then can use inner elements
-                if (response.data[0].queueType == "RANKED_SOLO_5x5") {
+                else if (response.data[0].queueType == "RANKED_SOLO_5x5") {
                     //use [0] for flex and [1] for 5v5 RANK
                     let regRank = await response.data[0];
 
@@ -173,7 +193,6 @@ client.on('message', async message => {
                 console.log('Promise unfulfilled. Could not get league name :(')
             }
 
-            //get Icon
             function getLeagueIcon() {
                 if (rankData.tier == "IRON" & rankData.rank == "IV") {
                     return 'https://static.wikia.nocookie.net/leagueoflegends/images/7/70/Season_2019_-_Iron_4.png/revision/latest/scale-to-width-down/130?cb=20181229234928';
@@ -259,8 +278,6 @@ client.on('message', async message => {
                 }
             }
 
-
-
             const exampleEmbed = new Discord.MessageEmbed()
                 .setColor('#FF338A')
                 .setTitle(`${lolName}'s ${rankData.qType} Rank is`)
@@ -270,6 +287,7 @@ client.on('message', async message => {
 
             message.channel.send(exampleEmbed);
 
+
         } else if (args[0] === 'flex') {
 
             let encryptedId = await getEncryptedID().catch(err => {
@@ -277,7 +295,7 @@ client.on('message', async message => {
                 return new Error('Error getting EncryptedID')
             });
 
-            const url2 = `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${encryptedId}?api_key=` + apiKey;
+            const url2 = `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${encryptedId}?api_key=` + config.apiKey;
 
             let getRank = async () => {
                 let response = await axios.get(url2).catch(err => {
@@ -285,8 +303,28 @@ client.on('message', async message => {
                     return new Error('Error getting rank data')
                 });
 
+                //check if returned empty json object
+                function isEmpty(obj) {
+                    for(var key in obj) {
+                        if(obj.hasOwnProperty(key))
+                            return false;
+                    }
+                    return true;
+                }
+
+                if (isEmpty(response.data)) {
+                    const oopsEmbed = new Discord.MessageEmbed()
+                        .setColor('#FF338A')
+                        .setTitle(`Oopsie! :pleading_face:`)
+                        .addField('Please Try Again', `Make sure the summoner has a Flex Queue rank in the current season!`)
+                        .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
+
+                    message.channel.send(oopsEmbed);
+
+                }
+
                 //access data first array element and then can use inner elements
-                if (response.data[0].queueType == "RANKED_FLEX_SR") {
+                else if (response.data[0].queueType == "RANKED_FLEX_SR") {
                     //use [0] for flex and [1] for 5v5 RANK
                     let regRank = await response.data[0];
 
@@ -342,7 +380,7 @@ client.on('message', async message => {
             } catch (error) {
                 console.log('Promise unfulfilled. Could not get league name :(')
             }
-            //get Icon
+
             function getLeagueIcon() {
                 if (rankData.tier == "IRON" & rankData.rank == "IV") {
                     return 'https://static.wikia.nocookie.net/leagueoflegends/images/7/70/Season_2019_-_Iron_4.png/revision/latest/scale-to-width-down/130?cb=20181229234928';
@@ -428,7 +466,6 @@ client.on('message', async message => {
                 }
             }
 
-
             const exampleEmbed = new Discord.MessageEmbed()
                 .setColor('#FF338A')
                 .setTitle(`${lolName}'s ${rankData.qType} Rank is`)
@@ -437,6 +474,7 @@ client.on('message', async message => {
                 .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
 
             message.channel.send(exampleEmbed);
+        
 
         }
     }
@@ -444,4 +482,4 @@ client.on('message', async message => {
 
 
 //login access to bot application -- keep at EOF
-client.login('NzkxMjczOTkzODA5NTU5NTgz.X-MxVQ.2KPSyOiAPb66lnGqLhJ6g6WSOVc');
+client.login(`${config.discordBotToken}`);

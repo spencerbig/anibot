@@ -5,6 +5,7 @@
 //use case neither of them and no ranked has been played this season.
 
 
+//http req without AXIOS module
 
 //https.get(url2, (resp) => {
 //     let data = '';
