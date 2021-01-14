@@ -31,7 +31,7 @@ outputs ranked flex data (summoner name, tier, wins, points)
 * How to use a a basic API then how to utilize RIOT's REST API
 * How to output random images then output local and internet embed images
 * How to output League of Legends solo and flex ranks given a summoner name from discord
-* To not post bot tokens and API keys onto github
+* To not post bot tokens and API keys onto github LOL
 
 ## Challenges
 * Using regular http or module http request methods

@@ -5,7 +5,7 @@ const config = require("./config.json");
 
 const uri = "https://animechanapi.xyz/api/quotes/random";
 
-
+//nodemon for hot reload
 //discord bot client 
 const client = new Discord.Client();
 const prefix = '!';
