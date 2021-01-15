@@ -4,7 +4,6 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "sschibig",
@@ -12,6 +11,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
     "https": "^1.0.0",
     "require": "^2.4.20",
     "riot-api": "^0.1.0"

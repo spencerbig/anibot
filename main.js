@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 const axios = require("axios");
 const config = require("./config.json");
+require('dotenv').config();
 
 const uri = "https://animechanapi.xyz/api/quotes/random";
 
@@ -489,4 +490,4 @@ client.on('message', async message => {
 
 
 //login access to bot application -- keep at EOF
-client.login(`${config.discordBotToken}`);
+client.login(process.env.BOT_TOKEN);
