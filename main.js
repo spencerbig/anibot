@@ -1,8 +1,8 @@
 //ani bot
 const Discord = require('discord.js');
 const axios = require("axios");
-const config = require("./config.json");
 require('dotenv').config();
+// const config = require("./config.json");
 
 const uri = "https://animechanapi.xyz/api/quotes/random";
 
@@ -26,7 +26,7 @@ client.on('message', async message => {
     const command = args.shift().toLowerCase();
 
     //access league name and encryptedID
-    const url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${riotName}?api_key=` + config.apiKey;
+    const url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${riotName}?api_key=` + process.env.RIOT_GAMES_API_KEY;
     let getName = async () => {
         let response = await axios.get(url);
         //access data first array element and then can use inner elements
@@ -114,7 +114,7 @@ client.on('message', async message => {
                 return new Error('Error getting EncryptedID')
             });
 
-            const url2 = `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${encryptedId}?api_key=` + config.apiKey;
+            const url2 = `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${encryptedId}?api_key=` + process.env.RIOT_GAMES_API_KEY;
 
             let getRank = async () => {
                 let response = await axios.get(url2).catch(err => {
@@ -302,7 +302,7 @@ client.on('message', async message => {
                 return new Error('Error getting EncryptedID')
             });
 
-            const url2 = `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${encryptedId}?api_key=` + config.apiKey;
+            const url2 = `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${encryptedId}?api_key=` + process.env.RIOT_GAMES_API_KEY;
 
             let getRank = async () => {
                 let response = await axios.get(url2).catch(err => {
