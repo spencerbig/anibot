@@ -44,7 +44,7 @@ client.on('message', async message => {
     };
 
     function randomEmbedColor() {
-        var colorsArray = ['#e9ccc4','#e7adb8', '#7ebca8', '#823a4b', '#e4dde1', '#b64358', '#e7dfd9']
+        var colorsArray = ['#e9ccc4', '#e7adb8', '#7ebca8', '#823a4b', '#e4dde1', '#b64358', '#e7dfd9']
         let chosenColor = colorsArray[Math.floor(Math.random() * colorsArray.length)];
         return chosenColor;
     }
@@ -79,13 +79,19 @@ client.on('message', async message => {
             };
 
             let quoteData = await getQuote();
-            let charData = await getCharacter();
+            let charData = await getCharacter().replace(/'/g, '');
 
             console.log(quoteData);
             console.log(charData);
 
-            message.channel.send(require('util').inspect(quoteData));
-            message.channel.send(require('util').inspect(charData).replace(/'/g, ''));
+            const exampleEmbed = new Discord.MessageEmbed()
+                .setColor(randomEmbedColor())
+                .setTitle(`${charData} once said..`)
+                .addField(`${quoteData}`)
+                .setImage('https://i.pinimg.com/originals/c0/46/48/c0464814c994c63e9659f50f89fdabf8.jpg')
+                .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
+
+            message.channel.send(exampleEmbed);
 
         }
 
@@ -124,8 +130,8 @@ client.on('message', async message => {
 
                 //check if returned empty json object
                 function isEmpty(obj) {
-                    for(var key in obj) {
-                        if(obj.hasOwnProperty(key))
+                    for (var key in obj) {
+                        if (obj.hasOwnProperty(key))
                             return false;
                     }
                     return true;
@@ -312,8 +318,8 @@ client.on('message', async message => {
 
                 //check if returned empty json object
                 function isEmpty(obj) {
-                    for(var key in obj) {
-                        if(obj.hasOwnProperty(key))
+                    for (var key in obj) {
+                        if (obj.hasOwnProperty(key))
                             return false;
                     }
                     return true;
@@ -482,7 +488,7 @@ client.on('message', async message => {
                 .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
 
             message.channel.send(exampleEmbed);
-        
+
 
         }
     }
