@@ -5,6 +5,7 @@ require('dotenv').config();
 // const config = require("./config.json");
 
 const uri = "https://animechanapi.xyz/api/quotes/random";
+const naruto = "https://animechanapi.xyz/api/quotes?anime=naruto"
 
 //nodemon for hot reload
 //discord bot client 
@@ -78,22 +79,70 @@ client.on('message', async message => {
                 return char;
             };
 
-            let quoteData = await getQuote();
-            let charData = await getCharacter().replace(/'/g, '');
+            let getAnime = async () => {
+                let response = await axios.get(uri);
+                let char = response.data.data[0].anime;
 
-            console.log(quoteData);
-            console.log(charData);
+                return char;
+            };
+
+            let quoteData = await getQuote();
+            let charData = await getCharacter();
+            let animeName = await getAnime();
+
+            let character = charData.replace(/'/g, '');
+
+            // console.log(quoteData);
+            // console.log(charData);
 
             const exampleEmbed = new Discord.MessageEmbed()
                 .setColor(randomEmbedColor())
-                .setTitle(`${charData} once said..`)
-                .addField(`${quoteData}`)
+                .setTitle(`${animeName}`)
+                .addField(`${character} once said..`, `${quoteData}`)
                 .setImage('https://i.pinimg.com/originals/c0/46/48/c0464814c994c63e9659f50f89fdabf8.jpg')
                 .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
 
             message.channel.send(exampleEmbed);
 
         }
+
+        else if (args[0] === 'minju') {
+            var fs = require('fs');
+            var files = fs.readdirSync('./naruto');
+            let chosenFile = files[Math.floor(Math.random() * files.length)];
+
+            let getQuote = async () => {
+                let response = await axios.get(naruto);
+                let quote = response.data.data[0].quote;
+
+                return quote;
+            };
+
+            let getCharacter = async () => {
+                let response = await axios.get(naruto);
+                let char = response.data.data[0].character;
+
+                return char;
+            };
+
+            let quoteData = await getQuote();
+            let charData = await getCharacter();
+
+
+            let character = charData.replace(/'/g, '');
+
+            const exampleEmbed = new Discord.MessageEmbed()
+                .setColor(randomEmbedColor())
+                .setTitle(`Naruwuto`)
+                .addField(`${character} once said..`, `${quoteData}`)
+                .attachFiles(`./naruto/${chosenFile}`)
+                .setImage(`attachment://${chosenFile}`)
+                .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
+
+            message.channel.send(exampleEmbed);
+
+        }
+
 
         else if (args[0] === 'omg') {
 
