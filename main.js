@@ -99,18 +99,18 @@ client.on('message', async message => {
                 let quote = response.data.data[0].quote;
                 let charData = response.data.data[0].character;
 
-                console.log(quote);
-                console.log(charData);
+                // console.log(quote);
+                // console.log(charData);
                 // let character = charData.replace(/'/g, '');
 
-            //     const exampleEmbed = new Discord.MessageEmbed()
-            //     .setColor(randomEmbedColor())
-            //     .setTitle(`Naruwuto`)
-            //     .addField(`${charData} once said..`, `${quote}`)
-            //     .attachFiles(`./naruto/${chosenFile}`)
-            //     .setImage(`attachment://${chosenFile}`)
-            //     .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
-            // message.channel.send(exampleEmbed);
+                const exampleEmbed = new Discord.MessageEmbed()
+                .setColor(randomEmbedColor())
+                .setTitle(`Naruwuto`)
+                .addField(`${charData} once said..`, `${quote}`)
+                .attachFiles(`./naruto/${chosenFile}`)
+                .setImage(`attachment://${chosenFile}`)
+                .setFooter('ani ani', 'https://www.dlf.pt/dfpng/middlepng/151-1512407_zero-two-png-zero-two-anime-02-transparent.png');
+            message.channel.send(exampleEmbed);
 
 
             });
