@@ -97,8 +97,8 @@ client.on('message', async message => {
 
                 // console.log(response.data[0]);
 
-                let quote = response.data[0].quote;
-                let charData = response.data[0].character;
+                let quote = response.data.quote;
+                let charData = response.data.character;
 
                 // console.log(quote);
                 // console.log(charData);
