@@ -62,15 +62,16 @@ client.on('message', async message => {
         }
 
         else if (args[0] === 'inspo') {
-            const uri = "https://animechanapi.xyz/api/quotes/random";
+            const uri = "https://animechan.vercel.app/api/random";
 
             axios.get(uri).then(response => {
 
                 // console.log(response.data);
+                // console.log(response.data.anime);
 
-                let quote = response.data.data[0].quote;
-                let character = response.data.data[0].character;
-                let anime = response.data.data[0].anime;
+                let quote = response.data.quote;
+                let character = response.data.character;
+                let anime = response.data.anime;
 
                 const exampleEmbed = new Discord.MessageEmbed()
                 .setColor(randomEmbedColor())
@@ -86,7 +87,7 @@ client.on('message', async message => {
         }
 
         else if (args[0] === 'minju') {
-            const naruto = "https://animechanapi.xyz/api/quotes?anime=naruto"
+            const naruto = "https://animechan.vercel.app/api/quotes/anime?title=naruto"
 
             var fs = require('fs');
             var files = fs.readdirSync('./naruto');
@@ -94,10 +95,10 @@ client.on('message', async message => {
 
             axios.get(naruto).then(response => {
 
-                console.log(response.data);
+                // console.log(response.data[0]);
 
-                let quote = response.data.data[0].quote;
-                let charData = response.data.data[0].character;
+                let quote = response.data[0].quote;
+                let charData = response.data[0].character;
 
                 // console.log(quote);
                 // console.log(charData);
