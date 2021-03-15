@@ -87,7 +87,7 @@ client.on('message', async message => {
         }
 
         else if (args[0] === 'minju') {
-            const naruto = "https://animechan.vercel.app/api/quotes/anime?title=naruto"
+            const naruto = "https://animechan.vercel.app/api/random/anime?title=naruto"
 
             var fs = require('fs');
             var files = fs.readdirSync('./naruto');
